@@ -1,0 +1,53 @@
+package com.wang.demo;
+
+public class 模板方法模式 {
+	public static void main(String [] args) {
+		Teacher t1 = new DBTeacher();
+		t1.work();
+ 		Teacher t2 = new CTeacher();
+		t2.work();
+		
+	}
+}
+
+abstract class Teacher{
+	//老师工作的方法，一个流程------模板方法
+	
+	////第一步，准备，所有老师都是这样
+	public void prepared() {
+		System.out.println("打开投影仪，拿粉笔！");
+	}
+	
+////第2步，上课，每个老师不一样，交给子类去实现，抽象方法，只声明，无方法体
+	public abstract void teaching();
+	
+////第3步，结束备，所有老师都是这样
+	public void end() {
+		System.out.println("关闭投影仪，离开！");
+	}
+	
+	
+	//工作
+	public void work() {
+		//第一步，准备
+		prepared();
+		//第2步，教课
+		teaching();
+		//第3步，结束
+		end();
+	}
+}
+
+
+class DBTeacher extends Teacher{
+	public void teaching() {
+		System.out.println("打开Oracle,写sql代码");
+	}
+}
+
+
+class CTeacher extends Teacher{
+	public void teaching() {
+		System.out.println("打开VS,写c语言代码");
+	}
+}
