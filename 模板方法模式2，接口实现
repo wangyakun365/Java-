@@ -1,0 +1,101 @@
+package com.wang.demo;
+
+public class Ploy2_接口 {
+	public static void main(String[] args) {
+		School1 School11 = new School1();
+		black1 b = new black1("戴尔");
+		color1 c = new color1("惠普");
+		Teacher1 t = new Teacher1("张老师",30);
+
+		School11.setPrinter2(b);//打印中心安装黑白打印机
+		School11.print(t);//打印老师
+		//b.print(t);
+		School11.print(School11);//打印学校
+		//b.print(School11);
+		
+	///////////////////////////////////	
+		School11.setPrinter2(c);//打印中心安装彩色打印机
+		School11.print(t);//打印老师
+		//c.print(t);
+		School11.print(School11);//打印学校
+		//c.print(School11);
+		
+	}
+}
+
+
+
+//接口，具有同方法，抽象出来，
+//老师，学校都要打印出详细信息，
+//声明接口用interface,
+interface IInfo{
+	public abstract String detail();
+}
+
+//学校，接口，关键字implements
+//也是打印中心
+class School1 implements IInfo{
+	private Printer2 Printer2 = null;
+	public void setPrinter2(Printer2 Printer2) {//安装打印机的方法
+		this.Printer2 = Printer2;
+	}
+	public void print(IInfo info) {
+		Printer2.print(info.detail());
+	}
+	
+	public String detail() {//重写接口中的方法
+		return "海同科技有限公司";
+	}
+	
+}
+
+//打印机父类
+class Printer2{
+	private String brand;//打印机的品牌
+	
+	public Printer2(String brand) {
+		this.brand = brand;
+	}
+	
+	public String getBrand() {
+		return brand;
+	}
+	public void print(String content) {//父类的方法，无方法体，由子类去实现，多态
+	}
+	
+}
+
+//黑白打印机，继承Printer2，关键字extends
+class black1 extends Printer2{
+	public black1(String brand) {
+		super(brand);
+	}
+	public void print(String content) {//重写父类的方法
+		System.out.println(getBrand()+"黑白打印机："+content);
+	}	
+	
+}
+
+//彩色打印机，继承Printer2，关键字extends
+class color1 extends Printer2{
+	public color1(String brand) {
+		super(brand);
+	}
+	public void print(String content) {//重写父类的方法
+		System.out.println(getBrand()+"彩色打印机："+content);
+	}	
+}
+
+//老师，接口，关键字implements
+class Teacher1 implements IInfo{
+	private String name;
+	private int age;
+	public Teacher1(String name,int age) {
+		this.name = name;
+		this.age = age;	
+	}
+	public String detail() {//重写接口中的方法
+		return "你好，我是老师，名字："+name+"年龄："+age+"岁";
+	}
+	
+}
