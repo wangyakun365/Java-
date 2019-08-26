@@ -1,0 +1,58 @@
+package com.wang.demo;
+
+//简单工厂模式：专门定义一个类负责创建其他类的实例，被创建的类通常是有共同的父类或接口
+public class 简单工厂模式 {
+	public static void main(String[] args) {
+		Ifruit fruit1 = Factory.getFruit("苹果");
+		if(fruit1!=null) {
+			System.out.println(fruit1.get());
+		}else {
+			System.out.println("Sorry,你要的水果没有");
+		}
+		
+		Ifruit fruit2 = Factory.getFruit("橘子");
+		if(fruit2!=null) {
+			System.out.println(fruit2.get());
+		}else {
+			System.out.println("Sorry,你要的水果没有");
+		}
+		
+		Ifruit fruit3 = Factory.getFruit("李子");
+		if(fruit3!=null) {
+			System.out.println(fruit3.get());
+		}else {
+			System.out.println("Sorry,你要的水果没有");
+		}
+		
+	}
+}
+
+class Factory{
+	public static Ifruit getFruit(String name) {
+		if(name.equals("苹果")) {
+			return new Apple();
+		}else if(name.equals("橘子")){
+			return new Orange();
+		}else{
+			return null;
+		}
+		
+	}
+}
+
+interface Ifruit{
+	public String get();
+}
+
+
+class Apple implements Ifruit{
+	public String get() {
+		return "摘一个苹果";
+	}
+}
+
+class Orange implements Ifruit{
+	public String get() {
+		return "摘一个橘子";
+	}
+}
