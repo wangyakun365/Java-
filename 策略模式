@@ -1,0 +1,85 @@
+package com.wang.demo;
+
+import java.lang.reflect.Array;
+
+public class 策略模式 {
+	public static void main(String [] args) {
+		int []  array = {5,8,9,6,4,1,55,2,4,4,15,5,5,45,};
+		ISort bubble = new BubbleSort();
+		ISort select = new SelectSort();
+		
+		Contest con1 = new Contest(bubble);
+		con1.sort(array);
+		con1.printarray(array);
+		
+		Contest con2 = new Contest(select);
+		con2.sort(array);
+		con2.printarray(array);;
+		
+		
+	}
+}
+
+
+//加工厂
+class Contest{
+	private ISort isort = null;
+	public Contest(ISort isort) {
+		this.isort = isort;
+	}
+	public void sort(int [] array) {
+		isort.sort(array);
+	}
+	public void printarray(int [] array) {
+		for(int i=0;i<array.length;i++){
+			System.out.print(array[i]+" ");
+		}
+	}
+}
+
+//接口，责任，他要进行排序的责任，具体用什么样的方法排序，它不管
+//它需要部署下去，用引用它的类去实现，比如有冒排序泡的，有选择排序的
+//只声明了一个方法
+interface ISort{
+	public void sort(int [] array);
+}
+
+
+//冒泡排序
+class BubbleSort implements ISort{
+	public void sort(int [] array) {
+		System.out.println("冒泡排序");
+		for(int i=0;i<array.length-1;i++) {
+			for(int j=0;j<array.length-1-i;j++) {
+				if(array[j]>array[j+1]) {
+					int temp = array[j];
+					array[j]=array[j+1];
+					array[j+1]=temp;
+				}
+			}
+			
+		}
+	}
+}
+
+
+//选择排序 
+class SelectSort implements ISort{
+	public void sort(int [] array) {
+		System.out.println("\n选择排序");
+		int min = 0;
+		for(int i=0;i<array.length;i++) {
+			min = i;
+			for(int j=i+1;j<array.length;j++) {
+				if(array[min]>array[j]) {
+					min = j;
+				}
+			}
+			if(min!=i) {
+				int temp = array[i];
+				array[i] = array[min];
+				array[min] = array[min];
+			}
+		}
+	}	
+}
